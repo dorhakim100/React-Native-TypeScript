@@ -1,0 +1,157 @@
+import * as React from 'react'
+import { useEffect, useState } from 'react'
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native'
+import { useNavigation, NavigationProp, StackActions } from '@react-navigation/native'
+
+
+import { Ionicons } from '@expo/vector-icons'
+
+import { useSelector } from 'react-redux'
+
+import { setIsHeader, setIsPrefs } from '../../store/actions/system.actions'
+
+import { RootState } from '../../store/store'
+import { routes, Route } from '../../routes/routes'
+import { DropdownMenu } from '../DropdownMenu/DropdownMenu'
+
+import { DropdownOption } from '../../types/DropdownOption'
+import { RootStackParamList } from '../../navigation/types'
+import { StackNavigationProp } from '@react-navigation/stack'
+
+
+
+export function SearchBar() {
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
+  const prefs = useSelector(
+    (stateSelector: RootState) => stateSelector.systemModule.prefs
+  )
+  const isPrefs = useSelector(
+    (stateSelector: RootState) => stateSelector.systemModule.isPrefs
+  )
+
+  const isHeader = useSelector(
+    (stateSelector: RootState) => stateSelector.systemModule.isHeader
+  )
+
+  const [dropdownOptions, setDropdownOptions] = useState<DropdownOption[]>([])
+
+  const onToggleMenu = () => {
+    setIsHeader(!isHeader)
+  }
+
+  useEffect(() => {
+    const options = routes.map((route: Route) => {
+      return {
+        title: route.title,
+        onClick: (): void => {
+          // navigation.replace(route.path as keyof RootStackParamList)
+          navigation.dispatch(StackActions.replace(route.path as keyof RootStackParamList))
+          // navigation.navigate(route.path as keyof RootStackParamList)
+        },
+      }
+    })
+    setDropdownOptions(options)
+  }, [])
+
+  return (
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: prefs.isDarkMode ? '#333' : '#fff' },
+      ]}
+    >
+      <View style={styles.menuContainer}>
+        <DropdownMenu options={dropdownOptions} />
+      </View>
+      <View
+        style={[styles.searchContainer, prefs.isDarkMode && styles.darkMode]}
+      >
+        <TextInput
+          style={[
+            styles.inputBase,
+            { color: prefs.isDarkMode ? '#fff' : '#000', backgroundColor: prefs.isDarkMode ? '#555' : '#f0f0f0' },
+
+          ]}
+          placeholder='Search meeting'
+          placeholderTextColor={prefs.isDarkMode ? '#ccc' : '#666'}
+        />
+        <TouchableOpacity style={{...styles.iconButton, backgroundColor:prefs.isDarkMode ? '#555' : '#f0f0f0'}}>
+          <Ionicons
+            name='search'
+            size={16}
+            color={prefs.isDarkMode ? '#fff' : '#000'}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.settingsContainer}>
+        <View style={styles.divider} />
+        <TouchableOpacity
+          style={styles.iconButton}
+          onPress={() => {
+            setIsPrefs(!isPrefs)
+          }}
+        >
+          <Ionicons
+            name='settings'
+            size={24}
+            color={prefs.isDarkMode ? '#fff' : '#000'}
+          />
+        </TouchableOpacity>
+      </View>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    zIndex: 1,
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+  },
+  menuContainer: {
+    // flex: 1, // Adjust as needed
+  },
+  searchContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0', // Placeholder, adjust as needed
+    borderRadius: 5,
+    marginHorizontal: 5,
+  },
+  darkMode: {
+    // backgroundColor: '#555', // Placeholder, adjust as needed
+  },
+  inputBase: {
+    flex: 1,
+    padding: 10,
+  },
+  iconButton: {
+    // padding: 10,
+    // backgroundColor: 'transparent', // Make sure the button is transparent
+    paddingHorizontal: 10,
+    paddingVertical: 10.5,
+    borderTopRightRadius: 5,
+    borderBottomRightRadius: 5,
+  },
+  settingsContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  divider: {
+    height: 28,
+    width: 1,
+    backgroundColor: '#ccc',
+    marginHorizontal: 5,
+  },
+})
