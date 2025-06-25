@@ -12,7 +12,9 @@ const RADIUS = CENTER - 10 // leave a little padding
 export function CustomClock() {
   const [time, setTime] = useState(new Date())
 
-  const prefs = useSelector((stateSelector: RootState) => stateSelector.systemModule.prefs)
+  const prefs = useSelector(
+    (stateSelector: RootState) => stateSelector.systemModule.prefs
+  )
 
   useEffect(() => {
     const id = setInterval(() => setTime(new Date()), 1000)
@@ -35,11 +37,13 @@ export function CustomClock() {
   })
 
   // build hour-marks and numbers
-  const ticks = Array.from({ length: 12 }).map((_, i) => {
-    const angle = (i / 12) * 360
+  const ticks = Array.from({ length: 60 }).map((_, i) => {
+    const angle = (i / 60) * 360
+    const angleNums = (i / 12) * 360
     const outer = polarToCartesian(angle, RADIUS)
     const inner = polarToCartesian(angle, RADIUS - (i % 3 === 0 ? 20 : 10))
-    const numPos = polarToCartesian(angle, RADIUS - 40)
+    const numPos = polarToCartesian(angleNums, RADIUS - 40)
+
     return (
       <React.Fragment key={i}>
         <Line
@@ -47,7 +51,7 @@ export function CustomClock() {
           y1={outer.y}
           x2={inner.x}
           y2={inner.y}
-          stroke={prefs.isDarkMode ? '#fff' :'#333'}
+          stroke={prefs.isDarkMode ? '#fff' : '#333'}
           strokeWidth={i % 3 === 0 ? 4 : 2}
         />
         <SvgText
@@ -55,10 +59,10 @@ export function CustomClock() {
           y={numPos.y + 5} // +5 to center vertically
           fontSize={16}
           fontWeight='bold'
-          fill={prefs.isDarkMode ? '#fff' :'#333'}
+          fill={prefs.isDarkMode ? '#fff' : '#333'}
           textAnchor='middle'
         >
-          {i === 0 ? 12 : i}
+          {/* {i % 5 === 0 ? 12 : i} */}
         </SvgText>
       </React.Fragment>
     )
@@ -98,9 +102,9 @@ export function CustomClock() {
           cx={CENTER}
           cy={CENTER}
           r={RADIUS}
-          stroke={prefs.isDarkMode ? '#fff' :'#333'}
+          stroke={prefs.isDarkMode ? '#fff' : '#333'}
           strokeWidth={5}
-          fill={prefs.isDarkMode ? '#222' :'#fafafa'}
+          fill={prefs.isDarkMode ? '#222' : '#fafafa'}
         />
 
         {/* ticks + numbers */}
@@ -111,14 +115,14 @@ export function CustomClock() {
           angle={hourAngle}
           length={RADIUS * 0.5}
           strokeWidth={6}
-          color={prefs.isDarkMode ? '#fff' :'#333'}
+          color={prefs.isDarkMode ? '#fff' : '#333'}
         />
         {/* minute hand */}
         <Hand
           angle={minuteAngle}
           length={RADIUS * 0.75}
           strokeWidth={4}
-          color={prefs.isDarkMode ? '#fff' :'#555'}
+          color={prefs.isDarkMode ? '#fff' : '#555'}
         />
         {/* second hand */}
         <Hand
@@ -129,7 +133,12 @@ export function CustomClock() {
         />
 
         {/* center pin */}
-        <Circle cx={CENTER} cy={CENTER} r={6} fill={prefs.isDarkMode ? '#fff' :'#333'} />
+        <Circle
+          cx={CENTER}
+          cy={CENTER}
+          r={6}
+          fill={prefs.isDarkMode ? '#fff' : '#333'}
+        />
       </Svg>
     </View>
   )

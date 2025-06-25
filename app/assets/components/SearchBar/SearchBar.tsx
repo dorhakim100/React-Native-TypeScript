@@ -6,9 +6,13 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
+  Image,
 } from 'react-native'
-import { useNavigation, NavigationProp, StackActions } from '@react-navigation/native'
-
+import {
+  useNavigation,
+  NavigationProp,
+  StackActions,
+} from '@react-navigation/native'
 
 import { Ionicons } from '@expo/vector-icons'
 
@@ -24,8 +28,6 @@ import { DropdownOption } from '../../types/DropdownOption'
 import { RootStackParamList } from '../../navigation/types'
 import { StackNavigationProp } from '@react-navigation/stack'
 
-
-
 export function SearchBar() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
   const prefs = useSelector(
@@ -39,6 +41,11 @@ export function SearchBar() {
     (stateSelector: RootState) => stateSelector.systemModule.isHeader
   )
 
+  const logo = require('../../../../assets/images/logo.png')
+  const logoDarkMode = require('../../../../assets/images/logo-dark.png')
+
+  const [currLogo, setCurrLogo] = useState(logo)
+
   const [dropdownOptions, setDropdownOptions] = useState<DropdownOption[]>([])
 
   const onToggleMenu = () => {
@@ -46,12 +53,18 @@ export function SearchBar() {
   }
 
   useEffect(() => {
+    setCurrLogo(prefs.isDarkMode ? logoDarkMode : logo)
+  }, [prefs.isDarkMode])
+
+  useEffect(() => {
     const options = routes.map((route: Route) => {
       return {
         title: route.title,
         onClick: (): void => {
           // navigation.replace(route.path as keyof RootStackParamList)
-          navigation.dispatch(StackActions.replace(route.path as keyof RootStackParamList))
+          navigation.dispatch(
+            StackActions.replace(route.path as keyof RootStackParamList)
+          )
           // navigation.navigate(route.path as keyof RootStackParamList)
         },
       }
@@ -66,8 +79,8 @@ export function SearchBar() {
         { backgroundColor: prefs.isDarkMode ? '#333' : '#fff' },
       ]}
     >
-      <View style={styles.menuContainer}>
-        <DropdownMenu options={dropdownOptions} />
+      <View style={styles.imageContainer}>
+        <Image source={currLogo} style={styles.image}></Image>
       </View>
       <View
         style={[styles.searchContainer, prefs.isDarkMode && styles.darkMode]}
@@ -75,13 +88,20 @@ export function SearchBar() {
         <TextInput
           style={[
             styles.inputBase,
-            { color: prefs.isDarkMode ? '#fff' : '#000', backgroundColor: prefs.isDarkMode ? '#555' : '#f0f0f0' },
-
+            {
+              color: prefs.isDarkMode ? '#fff' : '#000',
+              backgroundColor: prefs.isDarkMode ? '#555' : '#f0f0f0',
+            },
           ]}
           placeholder='Search meeting'
           placeholderTextColor={prefs.isDarkMode ? '#ccc' : '#666'}
         />
-        <TouchableOpacity style={{...styles.iconButton, backgroundColor:prefs.isDarkMode ? '#555' : '#f0f0f0'}}>
+        <TouchableOpacity
+          style={{
+            ...styles.iconButton,
+            backgroundColor: prefs.isDarkMode ? '#555' : '#f0f0f0',
+          }}
+        >
           <Ionicons
             name='search'
             size={16}
@@ -103,6 +123,9 @@ export function SearchBar() {
             color={prefs.isDarkMode ? '#fff' : '#000'}
           />
         </TouchableOpacity>
+        <View style={styles.menuContainer}>
+          <DropdownMenu options={dropdownOptions} />
+        </View>
       </View>
     </View>
   )
@@ -118,6 +141,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
     paddingVertical: 2,
   },
+
+  imageContainer: {
+    // display: 'flex',
+    width: 100,
+    height: 50,
+  },
+
+  image: {
+    width: 100,
+    height: 50,
+  },
+
   menuContainer: {
     // flex: 1, // Adjust as needed
   },

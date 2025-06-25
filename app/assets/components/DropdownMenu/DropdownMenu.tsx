@@ -32,9 +32,17 @@ export function DropdownMenu({ options }: { options: DropdownOption[] }) {
       <TouchableOpacity style={styles.iconButton} onPress={handleOpen}>
         <Text style={{ color: prefs.isDarkMode ? '#fff' : '#000' }}>
           {modalVisible ? (
-            <MaterialIcons name='menu-open' size={24} color={prefs.isDarkMode ? '#fff' : '#333'} />
+            <MaterialIcons
+              name='menu-open'
+              size={24}
+              color={prefs.isDarkMode ? '#fff' : '#333'}
+            />
           ) : (
-            <MaterialIcons name='menu' size={24} color={prefs.isDarkMode ? '#fff' : '#333'} />
+            <MaterialIcons
+              name='menu'
+              size={24}
+              color={prefs.isDarkMode ? '#fff' : '#333'}
+            />
           )}
         </Text>
       </TouchableOpacity>
@@ -91,12 +99,12 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: 'flex-start',
-    alignItems: 'flex-start',
+    alignItems: 'flex-end',
     backgroundColor: 'rgba(0,0,0,0.5)', // Semi-transparent background
   },
   menuContainer: {
     marginTop: 120, // Adjust position based on AppHeader/SearchBar
-    marginLeft: 10, // Adjust position
+    marginRight: 10, // Adjust position
     borderRadius: 5,
     minWidth: 200,
     elevation: 5, // For Android shadow
