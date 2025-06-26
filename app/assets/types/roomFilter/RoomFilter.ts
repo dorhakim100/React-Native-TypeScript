@@ -1,7 +1,5 @@
 export interface RoomFilter {
   txt: string
-  sortDir: number | null
-  categories: string[]
+  hostId: string
   pageIdx: number
-  isAll: boolean
 }
