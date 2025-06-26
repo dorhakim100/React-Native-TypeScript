@@ -6,6 +6,7 @@ import Clock from 'react-live-clock'
 
 import { RootState } from '../../store/store'
 import { CustomClock } from './CustomClock'
+import Colors from '../../../../constants/Colors'
 
 export function ClockTime() {
   const prefs = useSelector(
@@ -46,23 +47,28 @@ export function ClockTime() {
   }, [])
   return (
     <View style={styles.container}>
-      {/* digital time */}
-      {/* <Clock
+      <Clock
         element={Text} // render inside RN <Text>
         format={'HH:mm'} // 24-hour format
         ticking={true} // auto-update
         timezone={'Asia/Jerusalem'} // your timezone
-        style={styles.time}
-      /> */}
-      <CustomClock />
-      {/* date below, you can localize as you like */}
-      <Text style={{...styles.date, color: prefs.isDarkMode ? '#fff' :'#333'}}>
-        {new Date().toLocaleDateString('he', {
+        style={{
+          ...styles.time,
+          color: prefs.isDarkMode ? Colors.dark.text : Colors.light.text,
+        }}
+      />
+
+      <Text
+        style={{ ...styles.date, color: prefs.isDarkMode ? '#fff' : '#333' }}
+      >
+        {new Date().toLocaleDateString('eng', {
           weekday: 'long',
           day: 'numeric',
           month: 'long',
         })}
       </Text>
+      <CustomClock />
+      {/* date below, you can localize as you like */}
     </View>
   )
 }

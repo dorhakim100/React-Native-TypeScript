@@ -13,6 +13,7 @@ import { DarkModeSwitch } from '../DarkModeSwitch/DarkModeSwitch'
 import { LanguageSwitch } from '../LanguageSwitch/LanguageSwitch'
 import { ShadowOverlay } from '../ShadowOverlay/ShadowOverlay'
 import { RootState } from '../../store/store'
+import Colors from '../../../../constants/Colors'
 
 export function Prefs() {
   const prefs = useSelector(
@@ -59,13 +60,25 @@ export function Prefs() {
         handleClose={onClosePrefsHeader}
       />
       <View
-        style={[styles.prefsPanel, isPrefs ? styles.prefsPanelVisible : null]}
+        style={[
+          styles.prefsPanel,
+          isPrefs
+            ? {
+                ...styles.prefsPanelVisible,
+                backgroundColor: prefs.isDarkMode ? '#3e3e3e' : '#eee',
+              }
+            : null,
+        ]}
       >
         <TouchableOpacity
           style={styles.closeContainer}
           onPress={closePrefsModal}
         >
-          <AntDesign name='close' size={24} color='black' />
+          <AntDesign
+            name='close'
+            size={24}
+            color={prefs.isDarkMode ? '#fff' : '#3e3e3e'}
+          />
         </TouchableOpacity>
         <View style={styles.prefsControl}>
           {/* <LanguageSwitch
@@ -84,14 +97,15 @@ export function Prefs() {
 const styles = StyleSheet.create({
   prefsPanel: {
     position: 'absolute',
-    right: 0,
+    right: 5,
     top: 120,
     bottom: 0,
-    width: 250,
+    width: 180,
     height: 150,
 
-    borderTopLeftRadius: 10,
-    borderBottomLeftRadius: 10,
+    // borderTopLeftRadius: 10,
+    // borderBottomLeftRadius: 10,
+    borderRadius: 10,
     backgroundColor: 'white',
     transform: [{ translateX: 250 }],
     zIndex: 1000,

@@ -27,6 +27,7 @@ import { DropdownMenu } from '../DropdownMenu/DropdownMenu'
 import { DropdownOption } from '../../types/DropdownOption'
 import { RootStackParamList } from '../../navigation/types'
 import { StackNavigationProp } from '@react-navigation/stack'
+import Colors from '../../../../constants/Colors'
 
 export function SearchBar() {
   const navigation = useNavigation<StackNavigationProp<RootStackParamList>>()
@@ -89,7 +90,7 @@ export function SearchBar() {
           style={[
             styles.inputBase,
             {
-              color: prefs.isDarkMode ? '#fff' : '#000',
+              color: prefs.isDarkMode ? Colors.dark.text : Colors.light.text,
               backgroundColor: prefs.isDarkMode ? '#555' : '#f0f0f0',
             },
           ]}
@@ -104,7 +105,7 @@ export function SearchBar() {
         >
           <Ionicons
             name='search'
-            size={16}
+            size={20}
             color={prefs.isDarkMode ? '#fff' : '#000'}
           />
         </TouchableOpacity>
@@ -119,8 +120,9 @@ export function SearchBar() {
         >
           <Ionicons
             name='settings'
-            size={24}
-            color={prefs.isDarkMode ? '#fff' : '#000'}
+            size={30}
+            // color={prefs.isDarkMode ? '#fff' : '#000'}
+            color={Colors.light.tint}
           />
         </TouchableOpacity>
         <View style={styles.menuContainer}>
@@ -130,6 +132,8 @@ export function SearchBar() {
     </View>
   )
 }
+
+const searchBarHeight = 60
 
 const styles = StyleSheet.create({
   container: {
@@ -160,22 +164,31 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
+
     backgroundColor: '#f0f0f0', // Placeholder, adjust as needed
-    borderRadius: 5,
-    marginHorizontal: 5,
+    borderRadius: 50,
+    // marginHorizontal: 5,
+    marginVertical: 5,
+    height: searchBarHeight,
+    borderColor: '#9e9e9e',
+    borderWidth: 0.7,
   },
   darkMode: {
-    // backgroundColor: '#555', // Placeholder, adjust as needed
+    backgroundColor: '#555', // Placeholder, adjust as needed
   },
   inputBase: {
     flex: 1,
     padding: 10,
+
+    borderRadius: 50,
   },
   iconButton: {
     // padding: 10,
     // backgroundColor: 'transparent', // Make sure the button is transparent
-    paddingHorizontal: 10,
-    paddingVertical: 10.5,
+
+    paddingInlineEnd: 7.5,
+    paddingInlineStart: 7.5,
+    // paddingVertical: 10.5,
     borderTopRightRadius: 5,
     borderBottomRightRadius: 5,
   },
@@ -187,6 +200,7 @@ const styles = StyleSheet.create({
     height: 28,
     width: 1,
     backgroundColor: '#ccc',
-    marginHorizontal: 5,
+    marginInlineEnd: 2,
+    marginInlineStart: 8,
   },
 })

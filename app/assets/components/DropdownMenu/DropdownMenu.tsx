@@ -34,13 +34,13 @@ export function DropdownMenu({ options }: { options: DropdownOption[] }) {
           {modalVisible ? (
             <MaterialIcons
               name='menu-open'
-              size={24}
+              size={35}
               color={prefs.isDarkMode ? '#fff' : '#333'}
             />
           ) : (
             <MaterialIcons
               name='menu'
-              size={24}
+              size={35}
               color={prefs.isDarkMode ? '#fff' : '#333'}
             />
           )}
@@ -94,7 +94,8 @@ export function DropdownMenu({ options }: { options: DropdownOption[] }) {
 
 const styles = StyleSheet.create({
   iconButton: {
-    padding: 10,
+    // padding: 10,
+    paddingHorizontal: 5,
   },
   overlay: {
     flex: 1,

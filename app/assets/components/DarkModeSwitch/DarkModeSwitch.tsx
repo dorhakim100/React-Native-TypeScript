@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux'
 
 import { RootState } from '../../store/store'
 import { setPrefs } from '../../store/actions/system.actions'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import Entypo from '@expo/vector-icons/Entypo'
+import Colors from '../../../../constants/Colors'
 
 export function DarkModeSwitch() {
   const prefs = useSelector(
@@ -15,10 +18,20 @@ export function DarkModeSwitch() {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={[styles.label, !prefs.isDarkMode && styles.activeLabel]}>
+    <View
+      style={{
+        ...styles.container,
+        backgroundColor: prefs.isDarkMode ? '#3e3e3e' : '',
+      }}
+    >
+      {/* <Text style={[styles.label, !prefs.isDarkMode && styles.activeLabel]}>
         Light
-      </Text>
+      </Text> */}
+      <Entypo
+        name='light-up'
+        size={30}
+        color={prefs.isDarkMode ? Colors.dark.text : Colors.light.text}
+      />
       <Switch
         trackColor={{ false: '#aab4be', true: '#aab4be' }}
         thumbColor={'#001e3c'}
@@ -27,9 +40,14 @@ export function DarkModeSwitch() {
         value={prefs.isDarkMode}
         style={styles.switch}
       />
-      <Text style={[styles.label, prefs.isDarkMode && styles.activeLabel]}>
+      {/* <Text style={[styles.label, prefs.isDarkMode && styles.activeLabel]}>
         Dark
-      </Text>
+      </Text> */}
+      <MaterialIcons
+        name='dark-mode'
+        size={30}
+        color={prefs.isDarkMode ? Colors.dark.text : Colors.light.text}
+      />
     </View>
   )
 }
@@ -40,6 +58,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 10,
+    gap: 10,
   },
   label: {
     fontSize: 16,
