@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../store/store'
 
 const { width } = Dimensions.get('window')
-const SIZE = width * 0.8 // clock diameter
+const SIZE = width * 0.7 // clock diameter
 const CENTER = SIZE / 2
-const RADIUS = CENTER - 10 // leave a little padding
+const RADIUS = CENTER - 12 // leave a little padding
 
 export function CustomClock() {
   const [time, setTime] = useState(new Date())

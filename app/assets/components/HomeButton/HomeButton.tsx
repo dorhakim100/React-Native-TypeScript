@@ -5,7 +5,7 @@ import { RootState } from '../../store/store'
 
 import Colors from '../../../../constants/Colors'
 
-export function HomeButton({ icon, text, color, action }) {
+export function HomeButton({ icon, text, color, action = () => {} }) {
   const scale = useRef(new Animated.Value(1)).current
 
   const prefs = useSelector(
@@ -14,7 +14,7 @@ export function HomeButton({ icon, text, color, action }) {
 
   const onPressIn = () => {
     Animated.spring(scale, {
-      toValue: 1.05,
+      toValue: 0.9,
       useNativeDriver: true,
     }).start()
   }
@@ -28,11 +28,7 @@ export function HomeButton({ icon, text, color, action }) {
 
   return (
     <View style={styles.buttonContainer}>
-      <Pressable
-        onPressIn={onPressIn}
-        onPressOut={onPressOut}
-        onPress={() => console.log('Pressed')}
-      >
+      <Pressable onPressIn={onPressIn} onPressOut={onPressOut} onPress={action}>
         <Animated.View
           style={[
             { ...styles.button, backgroundColor: color },

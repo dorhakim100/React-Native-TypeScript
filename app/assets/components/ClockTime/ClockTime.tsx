@@ -2,7 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { View, Text, StyleSheet } from 'react-native'
-import Clock from 'react-live-clock'
+// import Clock from 'react-live-clock'
 
 import { RootState } from '../../store/store'
 import { CustomClock } from './CustomClock'
@@ -47,16 +47,14 @@ export function ClockTime() {
   }, [])
   return (
     <View style={styles.container}>
-      <Clock
-        element={Text} // render inside RN <Text>
-        format={'HH:mm'} // 24-hour format
-        ticking={true} // auto-update
-        timezone={'Asia/Jerusalem'} // your timezone
+      <Text
         style={{
           ...styles.time,
           color: prefs.isDarkMode ? Colors.dark.text : Colors.light.text,
         }}
-      />
+      >
+        {timeString}
+      </Text>
 
       <Text
         style={{ ...styles.date, color: prefs.isDarkMode ? '#fff' : '#333' }}
