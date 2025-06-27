@@ -1,5 +1,9 @@
 const tintColorLight = '#2f95dc'
 const tintColorDark = '#fff'
+const deepPurple = '#6366f1'
+const lightDeepPurple = '#a5b4fc'
+const deepPurpleHover = '#4f46e5'
+const indigo = '#8b5cf6'
 
 export default {
   light: {
@@ -8,6 +12,10 @@ export default {
     tint: tintColorLight,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorLight,
+    deepPurple,
+    lightDeepPurple,
+    deepPurpleHover,
+    indigo,
   },
   dark: {
     text: '#fff',
@@ -15,5 +23,9 @@ export default {
     tint: tintColorDark,
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
+    deepPurple,
+    lightDeepPurple,
+    deepPurpleHover,
+    indigo,
   },
 }

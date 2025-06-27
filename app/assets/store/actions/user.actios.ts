@@ -146,9 +146,9 @@ export async function loadUser(userId: string) {
   }
 }
 
-export function setRemembered(user: User) {
+export function setRemembered(userOrToken: User | string) {
   store.dispatch({
     type: SET_USER,
-    user,
+    userOrToken,
   })
 }

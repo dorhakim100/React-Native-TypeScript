@@ -13,6 +13,7 @@ import { setIsLoading } from '../../store/actions/system.actions'
 import { loadRooms } from '../../store/actions/room.actions'
 import { showErrorMsg } from '../../services/event-bus.service'
 import { RoomFilter } from '../../types/roomFilter/RoomFilter'
+import { ScrollView } from 'react-native-gesture-handler'
 
 export function RoomList() {
   const prefs = useSelector(
@@ -31,8 +32,15 @@ export function RoomList() {
 
   useEffect(() => {
     setRooms(filter)
+    // loadRooms(filter)
   }, [filter])
-  console.log(rooms)
+
+  // useEffect(() => {
+  //   fetch('https://camjam.onrender.com/api/room')
+  //     .then((res) => res.text())
+  //     .then(console.log)
+  //     .catch(console.error)
+  // }, [])
 
   async function setRooms(filterBy: RoomFilter) {
     try {
@@ -47,27 +55,23 @@ export function RoomList() {
     }
   }
   return (
-    <View
+    <ScrollView
       style={[
         styles.container,
         { backgroundColor: prefs.isDarkMode ? '#333' : '#fff' },
       ]}
     >
-      <Text
-        style={[styles.title, { color: prefs.isDarkMode ? '#fff' : '#000' }]}
-      >
-        RoomList
-      </Text>
-      {rooms.map((room) => (
-        <>
-          <RoomCard
-            key={room.id}
-            room={room}
-            setIsPasswordModal={setIsPasswordModal}
-            setCurrPasswordModal={setCurrPasswordModal}
-          />
-        </>
-      ))}
+      {rooms &&
+        rooms.map((room) => (
+          <>
+            <RoomCard
+              key={room.id}
+              room={room}
+              setIsPasswordModal={setIsPasswordModal}
+              setCurrPasswordModal={setCurrPasswordModal}
+            />
+          </>
+        ))}
       {isPasswordModal && currPasswordModal && (
         <RoomPasswordModal
           key={`password-modal`}
@@ -75,15 +79,16 @@ export function RoomList() {
           setIsPasswordModal={setIsPasswordModal}
         />
       )}
-    </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: 'flex',
+    // justifyContent: 'center',
+    // alignItems: 'center',
   },
   title: {
     fontSize: 24,

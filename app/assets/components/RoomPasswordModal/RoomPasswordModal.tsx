@@ -100,10 +100,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalContainer: {
+    position: 'absolute',
+    top: 200,
+
     width: '80%',
+
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 24,
+    paddingHorizontal: 25,
+    paddingVertical: 40,
     alignItems: 'center',
     elevation: 5,
   },
@@ -113,7 +118,8 @@ const styles = StyleSheet.create({
   closeButton: {
     position: 'absolute',
     top: 10,
-    right: 10,
+    left: 10,
+    padding: 5,
     zIndex: 1,
   },
   closeButtonText: {

@@ -1,7 +1,9 @@
 import axios from 'axios'
 
-const BASE_URL =
-  process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3030/api/'
+// const BASE_URL =
+//   process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3030/api/'
+
+const BASE_URL = 'https://camjam.onrender.com/api/'
 
 const instance = axios.create({ withCredentials: true })
 
@@ -30,7 +32,9 @@ async function ajax(endpoint: string, method = 'GET', data = null) {
     const res = await instance(options)
     return res.data
   } catch (err: Error | any) {
-    console.dir(err)
+    // console.dir(err)
+    console.log(err)
+
     if (err.response && err.response.status === 401) {
       // Handle unauthorized access, e.g., navigate to login screen
       // For now, we will just throw the error

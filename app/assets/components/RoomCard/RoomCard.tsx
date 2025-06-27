@@ -7,6 +7,7 @@ import { RootStackParamList } from '../../navigation/types'
 import { RootState } from '../../store/store'
 import { Room } from '../../types/room/Room'
 import { FontAwesome } from '@expo/vector-icons'
+import Colors from '../../../../constants/Colors'
 
 // Placeholder for removeRoom function
 function removeRoom(room: Room, user: any) {
@@ -97,7 +98,8 @@ const styles = StyleSheet.create({
   card: {
     padding: 16,
     borderRadius: 10,
-    alignItems: 'flex-start',
+
+    alignItems: 'center',
   },
   privateIcon: {
     position: 'absolute',
@@ -124,7 +126,7 @@ const styles = StyleSheet.create({
     color: '#888',
   },
   primaryButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: Colors.light.deepPurple,
     paddingVertical: 10,
     paddingHorizontal: 24,
     borderRadius: 5,
