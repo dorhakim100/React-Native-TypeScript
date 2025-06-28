@@ -5,4 +5,5 @@ export type RootStackParamList = {
   Login: undefined
   RoomList: undefined
   SignIn: undefined
+  Room: { roomId: string }
 }

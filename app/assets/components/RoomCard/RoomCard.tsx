@@ -36,7 +36,7 @@ export function RoomCard({
 
   const handleJoin = () => {
     if (!room.is_private && !room.password) {
-      navigation.navigate('RoomList') // TODO: Change to actual room screen if available
+      navigation.navigate('Room', { roomId: room.id }) // TODO: Change to actual room screen if available
     } else {
       setIsPasswordModal(true)
       setCurrPasswordModal({

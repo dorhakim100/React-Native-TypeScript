@@ -12,9 +12,7 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.dor100.ReactFrontTS"
@@ -30,6 +28,12 @@
       "bundler": "metro",
       "favicon": "./assets/images/favicon.png"
     },
-    "plugins": []
+    "plugins": ["@config-plugins/react-native-webrtc"],
+    "extra": {
+      "eas": {
+        "projectId": "822bb8ba-dea1-4939-b94a-a01415af94b7"
+      }
+    },
+    "owner": "dor100"
   }
 }

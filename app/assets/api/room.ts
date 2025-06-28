@@ -38,8 +38,8 @@ const post = (itemToAdd, onProgress) => {
   })
 }
 
-const getById = (itemId, filter = getDefaultFilter()) =>
-  client.get(`${endpoint}/${itemId}`, filter)
+const getById = (roomId, filter = getDefaultFilter()) =>
+  client.get<Room>(`${endpoint}/${roomId}`, filter)
 
 const update = (itemId, itemToUpdate, token) => {
   return client.put(`${endpoint}/${itemId}`, itemToUpdate, {

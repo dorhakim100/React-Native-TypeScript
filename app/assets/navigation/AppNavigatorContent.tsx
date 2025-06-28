@@ -11,8 +11,10 @@ import { Services } from '../Screens/Services/Services'
 import { Login } from '../Screens/Login/Login'
 import { RoomList } from '../Screens/RoomList/RoomList'
 import { SignIn } from '../Screens/SignIn/SignIn'
+import { Room } from '../Screens/Room/Room'
+import { RootStackParamList } from './types'
 
-const Stack = createStackNavigator()
+const Stack = createStackNavigator<RootStackParamList>()
 
 export function AppNavigatorContent() {
   return (
@@ -48,6 +50,11 @@ export function AppNavigatorContent() {
         <Stack.Screen
           name='SignIn'
           component={SignIn}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name={'Room'}
+          component={Room}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

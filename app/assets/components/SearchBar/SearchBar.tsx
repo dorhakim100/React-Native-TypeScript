@@ -58,18 +58,24 @@ export function SearchBar() {
   }, [prefs.isDarkMode])
 
   useEffect(() => {
-    const options = routes.map((route: Route) => {
-      return {
-        title: route.title,
-        onClick: (): void => {
-          // navigation.replace(route.path as keyof RootStackParamList)
-          navigation.dispatch(
-            StackActions.replace(route.path as keyof RootStackParamList)
-          )
-          // navigation.navigate(route.path as keyof RootStackParamList)
-        },
-      }
-    })
+    const options = routes
+      .map((route: Route) => {
+        // if (route.isList)
+        console.log(route)
+
+        if (route.isList)
+          return {
+            title: route.title,
+            onClick: (): void => {
+              // navigation.replace(route.path as keyof RootStackParamList)
+              navigation.dispatch(
+                StackActions.replace(route.path as keyof RootStackParamList)
+              )
+              // navigation.navigate(route.path as keyof RootStackParamList)
+            },
+          }
+      })
+      .filter((option) => option)
     setDropdownOptions(options)
   }, [])
 

@@ -63,14 +63,12 @@ export function RoomList() {
     >
       {rooms &&
         rooms.map((room) => (
-          <>
-            <RoomCard
-              key={room.id}
-              room={room}
-              setIsPasswordModal={setIsPasswordModal}
-              setCurrPasswordModal={setCurrPasswordModal}
-            />
-          </>
+          <RoomCard
+            key={room.id}
+            room={room}
+            setIsPasswordModal={setIsPasswordModal}
+            setCurrPasswordModal={setCurrPasswordModal}
+          />
         ))}
       {isPasswordModal && currPasswordModal && (
         <RoomPasswordModal

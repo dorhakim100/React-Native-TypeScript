@@ -61,22 +61,27 @@ export function AppHeader({}: AppHeaderProps) {
         ]}
       >
         <View style={styles.menuItemsContainer}>
-          {routes.map((route: Route, index: number) => (
-            <TouchableOpacity
-              key={index}
-              onPress={() => navigateToPage(route.path)}
-              style={styles.menuItem}
-            >
-              <Text
-                style={[
-                  styles.menuItemText,
-                  { color: prefs.isDarkMode ? '#fff' : '#000' },
-                ]}
-              >
-                {route.title}
-              </Text>
-            </TouchableOpacity>
-          ))}
+          {routes.map((route: Route, index: number) => {
+            console.log(route)
+
+            if (route.isList)
+              return (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => navigateToPage(route.path)}
+                  style={styles.menuItem}
+                >
+                  <Text
+                    style={[
+                      styles.menuItemText,
+                      { color: prefs.isDarkMode ? '#fff' : '#000' },
+                    ]}
+                  >
+                    {route.title}
+                  </Text>
+                </TouchableOpacity>
+              )
+          })}
         </View>
       </SafeAreaView>
     </>

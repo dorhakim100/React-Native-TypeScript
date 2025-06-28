@@ -39,7 +39,7 @@ export function RoomPasswordModal({
       return
     }
     setIsPasswordModal(false)
-    navigation.navigate('RoomList')
+    navigation.navigate('Room', { roomId: roomData.roomId })
   }
 
   const closeModal = () => {

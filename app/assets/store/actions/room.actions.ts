@@ -19,16 +19,18 @@ export async function loadRooms(filterBy: RoomFilter): Promise<any> {
   }
 }
 
-// export async function loadRoom(roomId: string): Promise<any> {
-//   try {
-//     const room = await roomService.getById(roomId)
-//     store.dispatch(getCmdSetRoom(room))
-//     return room
-//   } catch (err) {
-//     // console.log('Cannot load room', err)
-//     throw err
-//   }
-// }
+export async function loadRoom(roomId: string): Promise<any> {
+  try {
+    const res = await roomService.getById(roomId)
+    if (!res || !res.ok) throw new Error(`Couldn't find rooms`)
+    const room = res.data
+    store.dispatch(getCmdSetRoom(room))
+    return room
+  } catch (err) {
+    // console.log('Cannot load room', err)
+    throw err
+  }
+}
 
 function getCmdSetRooms(rooms: Room[]) {
   return {
